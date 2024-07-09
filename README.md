@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=300px height=150px src="https://storage.googleapis.com/kaggle-datasets-images/1936563/3189208/5abb971a28726c55b73b835df915118d/dataset-cover.jpg" alt="Heart Disease"></a>
+ <img width=300px height=150px src="https://www.tbecker.com.br/uploads/images/2017/04/adote-12-medidas-para-proteger-a-saude-do-coracao-1493058672.jpg" alt="Heart Disease"></a>
 </p>
 
 <h3 align="center">Indicators of Heart Disease</h3>
