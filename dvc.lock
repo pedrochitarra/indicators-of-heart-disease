@@ -8,6 +8,10 @@ stages:
       md5: bb11d3b3ee152900146e2793ce20a089.dir
       size: 139870876
       nfiles: 1
+    - path: src/data_split.py
+      hash: md5
+      md5: c1c1faf8a1fbc2e80152beaab7a441d1
+      size: 1038
     outs:
     - path: data/interim/heart_test.parquet
       hash: md5
@@ -28,6 +32,10 @@ stages:
       hash: md5
       md5: 1b8dd7ac2ffb6acb5466d6198eb117fa
       size: 4953918
+    - path: src/data_cleaning.py
+      hash: md5
+      md5: fcb8cc03acfb6be48e92440b8c5e7aae
+      size: 830
     outs:
     - path: data/processed/heart_train_cleaned.parquet
       hash: md5

@@ -11,8 +11,10 @@ def clean_data(data: pd.DataFrame) -> pd.DataFrame:
     Returns:
         pd.DataFrame: The cleaned dataset
     """
+    print("Original data shape: ", data.shape)
     data = data.dropna()
     data = data.drop_duplicates()
+    print("Cleaned data shape: ", data.shape)
     return data
 
 

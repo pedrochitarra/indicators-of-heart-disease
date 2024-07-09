@@ -2,6 +2,7 @@ stages:
   data_split:
     cmd: python src/data_split.py
     deps:
+      - src/data_split.py
       - data/raw/
     outs:
       - data/interim/heart_train.parquet
@@ -10,6 +11,7 @@ stages:
   data_cleaning:
     cmd: python src/data_cleaning.py
     deps:
+      - src/data_cleaning.py
       - data/interim/heart_train.parquet
       - data/interim/heart_test.parquet
     outs:
