@@ -1,0 +1,8 @@
+stages:
+  data_split:
+    cmd: python src/data_split.py
+    deps:
+      - data/raw/
+    outs:
+      - data/interim/heart_train.parquet
+      - data/interim/heart_test.parquet
