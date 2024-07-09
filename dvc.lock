@@ -17,3 +17,19 @@ stages:
       hash: md5
       md5: 1b8dd7ac2ffb6acb5466d6198eb117fa
       size: 4953918
+  data_cleaning:
+    cmd: python src/data_cleaning.py
+    deps:
+    - path: data/interim/heart_test.parquet
+      hash: md5
+      md5: 23d2181522010dee6350a7cf1e415347
+      size: 1274259
+    - path: data/interim/heart_train.parquet
+      hash: md5
+      md5: 1b8dd7ac2ffb6acb5466d6198eb117fa
+      size: 4953918
+    outs:
+    - path: data/processed/heart_train_cleaned.parquet
+      hash: md5
+      md5: d5e7241d11d8e7b8d98c2152fdbe3ea3
+      size: 2319209

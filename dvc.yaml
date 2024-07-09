@@ -6,3 +6,11 @@ stages:
     outs:
       - data/interim/heart_train.parquet
       - data/interim/heart_test.parquet
+
+  data_cleaning:
+    cmd: python src/data_cleaning.py
+    deps:
+      - data/interim/heart_train.parquet
+      - data/interim/heart_test.parquet
+    outs:
+      - data/processed/heart_train_cleaned.parquet
