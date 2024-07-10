@@ -41,3 +41,14 @@ stages:
       hash: md5
       md5: d5e7241d11d8e7b8d98c2152fdbe3ea3
       size: 2319209
+  modeling:
+    cmd: python src/modeling.py
+    deps:
+    - path: data/processed/heart_train_cleaned.parquet
+      hash: md5
+      md5: d5e7241d11d8e7b8d98c2152fdbe3ea3
+      size: 2319209
+    - path: src/modeling.py
+      hash: md5
+      md5: d50d2f93a5cd57c2371761572503d5c1
+      size: 3636

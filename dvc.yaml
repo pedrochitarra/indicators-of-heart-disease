@@ -16,3 +16,9 @@ stages:
       - data/interim/heart_test.parquet
     outs:
       - data/processed/heart_train_cleaned.parquet
+
+  modeling:
+    cmd: python src/modeling.py
+    deps:
+      - src/modeling.py
+      - data/processed/heart_train_cleaned.parquet

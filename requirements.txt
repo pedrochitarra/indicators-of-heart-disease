@@ -1,3 +1,7 @@
 ipywidgets
 dvc==3.51.2
 dvc-gdrive==3.0.1
+hyperopt==0.2.7
+mlflow==2.14.2
+catboost==1.2.5
+python-dotenv==1.0.1
