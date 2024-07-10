@@ -1,0 +1,37 @@
+modeling:
+  n_trials: 5
+
+categorical_features:
+- State
+- Sex
+- GeneralHealth
+- LastCheckupTime
+- PhysicalActivities
+- RemovedTeeth
+- HadAngina
+- HadStroke
+- HadAsthma
+- HadSkinCancer
+- HadCOPD
+- HadDepressiveDisorder
+- HadKidneyDisease
+- HadArthritis
+- HadDiabetes
+- DeafOrHardOfHearing
+- BlindOrVisionDifficulty
+- DifficultyConcentrating
+- DifficultyWalking
+- DifficultyDressingBathing
+- DifficultyErrands
+- SmokerStatus
+- ECigaretteUsage
+- ChestScan
+- RaceEthnicityCategory
+- AgeCategory
+- AlcoholDrinkers
+- HIVTesting
+- FluVaxLast12
+- PneumoVaxEver
+- TetanusLast10Tdap
+- HighRiskLastYear
+- CovidPos
