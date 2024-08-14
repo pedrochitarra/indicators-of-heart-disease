@@ -23,6 +23,8 @@ from evidently.metrics import (ColumnDriftMetric, DatasetDriftMetric,
 # TODO: Use Grafana Cloud to visualize the metrics and dashboards. Learn how to
 # use Grafana Cloud to visualize the metrics and dashboards.
 
+# TODO: Organize this code in a more modular way!
+
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s [%(levelname)s]: %(message)s")
 

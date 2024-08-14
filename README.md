@@ -41,6 +41,14 @@ You should treat the variable "HadHeartAttack" as binary ("Yes" - respondent had
 
 So, given the full credits to the dataset creator for describing the problem and giving us the opportunity to work with this dataset, the project can be started. The dataset selected is the one with NaNs, as it is the most realistic scenario.
 
+## Overview <a name = "overview"></a>
+
+The tools used in this project can be found in the image below:
+
+![Tools](docs/tools.jpg)
+
+
+
 ## 🔎 EDA <a name = "eda"></a>
 
 Before any model is created, it is important to understand the dataset and its features. This is done through Exploratory Data Analysis (EDA), which is a process of analyzing data sets to summarize their main characteristics, often with visual methods.
@@ -106,3 +114,7 @@ file has the rules that are checked before every commit. It can be installed
 locally also to avoid waiting for the CI/CD pipeline to check the code quality.
 It can be installed by running the command `pre-commit install` and then check
 the code quality by running `pre-commit run --all-files`.
+
+# TODO: Criar imagem com as ferramentas utilizadas e colocar aqui.
+
+# TODO: Criar pelo menos um teste unitário e um teste de integração.
