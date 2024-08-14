@@ -8,7 +8,7 @@
 <p align="center"> Project aimed to learn MLOps concepts and apply them to a real-world dataset. <br> 
 </p>
 
-## 🧐 About <a name = "about"></a>
+# 🧐 Problem description <a name = "about"></a>
 Welcome to the Indicators of Heart Disease repository, an educational project
 that aims to predict the presence of heart disease in patients based on telephonic interviews.
 
@@ -44,3 +44,25 @@ So, given the full credits to the dataset creator for describing the problem and
 ## 🔎 EDA <a name = "eda"></a>
 
 Before any model is created, it is important to understand the dataset and its features. This is done through Exploratory Data Analysis (EDA), which is a process of analyzing data sets to summarize their main characteristics, often with visual methods.
+
+The folder notebooks contains the EDA notebook, where the dataset is analyzed and the features are understood.
+
+# 🧪 Experiment tracking and model registry <a name = "experiment"></a>
+
+The project uses MLflow to track experiments and register models. MLflow is an open-source platform to manage the end-to-end machine learning lifecycle. It helps with experiment tracking, reproducibility, and deployment.
+
+MLFlow documentation can be found [here](https://www.mlflow.org/docs/latest/index.html).
+
+# 🔄 Workflow orchestration <a name = "workflow"></a>
+
+The project uses DVC to orchestrate the workflow. DVC is an open-source version control system for machine learning projects. It is designed to handle large files, data sets, machine learning models, and metrics as well as code. Also, it is designed to work with Git and associate each Git commit with a unique DVC commit, in a way that the data, and code are all versioned together.
+
+DVC documentation can be found [here](https://dvc.org/doc).
+
+# ⚙️ Model deployment <a name = "deployment"></a>
+
+# 🔬 Model monitoring <a name = "monitoring"></a>
+
+# 🖥️ Reproducibility <a name = "reproducibility"></a>
+
+# 🪖 Best practices <a name = "best_practices"></a>

@@ -2,23 +2,25 @@ stages:
   data_split:
     cmd: python src/data_split.py
     deps:
-      - src/data_split.py
-      - data/raw/
+    - src/data_split.py
+    - data/raw/
     outs:
-      - data/interim/heart_train.parquet
-      - data/interim/heart_test.parquet
+    - data/interim/heart_train.parquet
+    - data/interim/heart_test.parquet
 
   data_cleaning:
     cmd: python src/data_cleaning.py
     deps:
-      - src/data_cleaning.py
-      - data/interim/heart_train.parquet
-      - data/interim/heart_test.parquet
+    - src/data_cleaning.py
+    - data/interim/heart_train.parquet
+    - data/interim/heart_test.parquet
     outs:
-      - data/processed/heart_train_cleaned.parquet
+    - data/processed/heart_train_cleaned.parquet
 
   modeling:
     cmd: python src/modeling.py
     deps:
-      - src/modeling.py
-      - data/processed/heart_train_cleaned.parquet
+    - src/modeling.py
+    - data/processed/heart_train_cleaned.parquet
+    params:
+    - modeling

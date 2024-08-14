@@ -1,5 +1,8 @@
 modeling:
   n_trials: 5
+  model_family: catboost
+  objective_function: Logloss # Logloss, CrossEntropy
+  loss_function: Precision # Precision, F1, Accuracy
 
 categorical_features:
 - State

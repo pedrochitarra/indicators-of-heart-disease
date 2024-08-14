@@ -50,5 +50,12 @@ stages:
       size: 2319209
     - path: src/modeling.py
       hash: md5
-      md5: d50d2f93a5cd57c2371761572503d5c1
-      size: 3636
+      md5: 7308ffcbbecffe16360d4184017a8140
+      size: 15737
+    params:
+      params.yaml:
+        modeling:
+          n_trials: 5
+          model_family: catboost
+          objective_function: Logloss
+          loss_function: Precision
