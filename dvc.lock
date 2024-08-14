@@ -1,7 +1,7 @@
 schema: '2.0'
 stages:
   data_split:
-    cmd: python src/data_split.py
+    cmd: python -m src.data_split
     deps:
     - path: data/raw/
       hash: md5
@@ -15,22 +15,22 @@ stages:
     outs:
     - path: data/interim/heart_test.parquet
       hash: md5
-      md5: 23d2181522010dee6350a7cf1e415347
+      md5: b91a726b7ca238ad6d0171456f30ae53
       size: 1274259
     - path: data/interim/heart_train.parquet
       hash: md5
-      md5: 1b8dd7ac2ffb6acb5466d6198eb117fa
+      md5: 6a64ed557e57fbafa407ec88c7e2bbfc
       size: 4953918
   data_cleaning:
-    cmd: python src/data_cleaning.py
+    cmd: python -m src.data_cleaning
     deps:
     - path: data/interim/heart_test.parquet
       hash: md5
-      md5: 23d2181522010dee6350a7cf1e415347
+      md5: b91a726b7ca238ad6d0171456f30ae53
       size: 1274259
     - path: data/interim/heart_train.parquet
       hash: md5
-      md5: 1b8dd7ac2ffb6acb5466d6198eb117fa
+      md5: 6a64ed557e57fbafa407ec88c7e2bbfc
       size: 4953918
     - path: src/data_cleaning.py
       hash: md5
@@ -39,7 +39,7 @@ stages:
     outs:
     - path: data/processed/heart_train_cleaned.parquet
       hash: md5
-      md5: d5e7241d11d8e7b8d98c2152fdbe3ea3
+      md5: fab94000f037836ee124cd8fc488194e
       size: 2319209
   modeling:
     cmd: python src/modeling.py
