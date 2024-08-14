@@ -163,3 +163,5 @@ cython_debug/
 
 mlruns/
 catboost_info/
+*.pkl
+sample_input.json
