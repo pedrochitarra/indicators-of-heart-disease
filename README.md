@@ -65,15 +65,28 @@ DVC documentation can be found [here](https://dvc.org/doc).
 
 # ⚙️ Model deployment <a name = "deployment"></a>
 
-The model is deployed using FastAPI, as seen at app/main.py script. The image
+The model is deployed using FastAPI, as seen at `app/main.py` script. The image
 is built and can be used to generate predictions as well, available at
 [here](https://hub.docker.com/repository/docker/pedrochitarra/indicators-of-heart-disease).
 
 # 🔬 Model monitoring <a name = "monitoring"></a>
 
+The model is monitored using Evidently, a Python library for interactive analytics
+and monitoring of machine learning models. It is used to monitor the model's
+performance and to understand the model's behavior over time. The docs can be
+accessed at [here](https://evidentlyai.com/).
+
+Also, in the simulation is used a database to store the predictions and the
+metrics, so it can be used to monitor the model's performance over time. Postgres
+was used as the database, and the docs can be accessed at [here](https://www.postgresql.org/).
+
+Grafana is used to visualize the metrics and the predictions, so it can be
+understood how the model is performing. The docs can be accessed at
+[here](https://grafana.com/docs/grafana/latest/).
+
 # 🖥️ Reproducibility <a name = "reproducibility"></a>
 
-The model can be created running the pipeline defined at the dvc.txt file by
+The model can be created running the pipeline defined at the `dvc.yaml` file by
 executing the command `dvc repro`. It will check the stages that are already
 computed and will run the stages that are not computed yet. At the end, the
 model will be created and the metrics will be saved at the MLFlow server.

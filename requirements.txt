@@ -7,3 +7,15 @@ catboost==1.2.5
 python-dotenv==1.0.1
 fastapi==0.112.0
 pandas==2.2.2
+prefect==2.20.1
+tqdm==4.66.4
+requests==2.32.3
+joblib==1.4.2
+pyarrow==15.0.2
+psycopg==3.2.1
+psycopg-binary==3.2.1
+evidently==0.4.35
+numpy==1.23.5
+scikit-learn==1.2.2
+jupyter==1.0.0
+matplotlib==3.8.4
