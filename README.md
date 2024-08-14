@@ -53,6 +53,10 @@ The project uses MLflow to track experiments and register models. MLflow is an o
 
 MLFlow documentation can be found [here](https://www.mlflow.org/docs/latest/index.html).
 
+The MLFlow server is hosted at DagsHub, and the experiments can be accessed [here](https://dagshub.com/pedrochitarra/indicators-of-heart-disease).
+
+In Dagshub, the experiments are tracked and the models are registered. The models can be downloaded and used in other applications. Also, it integrates DVC, MLFlow and the Git repo, making it easier to track the experiments, models and code.
+
 # 🔄 Workflow orchestration <a name = "workflow"></a>
 
 The project uses DVC to orchestrate the workflow. DVC is an open-source version control system for machine learning projects. It is designed to handle large files, data sets, machine learning models, and metrics as well as code. Also, it is designed to work with Git and associate each Git commit with a unique DVC commit, in a way that the data, and code are all versioned together.
@@ -61,8 +65,31 @@ DVC documentation can be found [here](https://dvc.org/doc).
 
 # ⚙️ Model deployment <a name = "deployment"></a>
 
+The model is deployed using FastAPI, as seen at app/main.py script. The image
+is built and can be used to generate predictions as well, available at
+[here](https://hub.docker.com/repository/docker/pedrochitarra/indicators-of-heart-disease).
+
 # 🔬 Model monitoring <a name = "monitoring"></a>
 
 # 🖥️ Reproducibility <a name = "reproducibility"></a>
 
+The model can be created running the pipeline defined at the dvc.txt file by
+executing the command `dvc repro`. It will check the stages that are already
+computed and will run the stages that are not computed yet. At the end, the
+model will be created and the metrics will be saved at the MLFlow server.
+
+With a model created, it can be downloaded using the `src/gather_mlflow_model.py`
+script. By the model_family set at `params.yaml`, the model will be downloaded and
+saved at the root folder as a .pkl file.
+
+Then, the image can be created by running the command
+`docker build -t indicators-of-heart-disease .` at the root folder.
+The image will be created and can be used to generate predictions.
+
 # 🪖 Best practices <a name = "best_practices"></a>
+For every commit, the CI/CD pipeline is triggered. It checks the code quality
+using flake8 and if there are any errors, the pipeline fails. The `.pre-commit-config.yaml`
+file has the rules that are checked before every commit. It can be installed
+locally also to avoid waiting for the CI/CD pipeline to check the code quality.
+It can be installed by running the command `pre-commit install` and then check
+the code quality by running `pre-commit run --all-files`.
