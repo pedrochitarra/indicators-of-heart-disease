@@ -41,13 +41,15 @@ You should treat the variable "HadHeartAttack" as binary ("Yes" - respondent had
 
 So, given the full credits to the dataset creator for describing the problem and giving us the opportunity to work with this dataset, the project can be started. The dataset selected is the one with NaNs, as it is the most realistic scenario.
 
+## Modeling
+
+The models' performance will be evaluated using the F1 score, as it is a good metric to evaluate the model's performance when the classes are unbalanced.
+
 ## Overview <a name = "overview"></a>
 
 The tools used in this project can be found in the image below:
 
 ![Tools](docs/tools.jpg)
-
-
 
 ## 🔎 EDA <a name = "eda"></a>
 
@@ -115,6 +117,6 @@ locally also to avoid waiting for the CI/CD pipeline to check the code quality.
 It can be installed by running the command `pre-commit install` and then check
 the code quality by running `pre-commit run --all-files`.
 
-# TODO: Criar imagem com as ferramentas utilizadas e colocar aqui.
-
-# TODO: Criar pelo menos um teste unitário e um teste de integração.
+Also there's a Makefile that has the commands to run tests, check the code quality
+and to build and push the image to Docker Hub. The commands can be run by executing
+`make publish`.
