@@ -1,12 +1,11 @@
 """Script to create Catboost Models for the dataset"""
-import yaml
 import pandas as pd
-
+import yaml
 from dotenv import load_dotenv
 
 from src.utils.mlflow.manage_mlflow import (create_mlflow_experiment,
-                                            register_best_model,
-                                            register_best_experiment)
+                                            register_best_experiment,
+                                            register_best_model)
 from src.utils.models.hpo import classification_optimization
 
 

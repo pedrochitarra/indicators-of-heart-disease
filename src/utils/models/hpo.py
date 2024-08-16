@@ -1,13 +1,13 @@
 """Modeling Optimization with Hyperopt"""
-import yaml
 import numpy as np
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import f1_score, accuracy_score, precision_score
+import yaml
 from catboost import CatBoostClassifier
-from xgboost import XGBClassifier
-from numpy.typing import ArrayLike
 from hyperopt import STATUS_OK, Trials, fmin, hp, tpe
 from hyperopt.pyll import scope
+from numpy.typing import ArrayLike
+from sklearn.metrics import accuracy_score, f1_score, precision_score
+from sklearn.model_selection import train_test_split
+from xgboost import XGBClassifier
 
 
 def classification_objective(x_train: ArrayLike, y_train: ArrayLike,

@@ -2,17 +2,17 @@
 import os
 import random
 
+import matplotlib.pyplot as plt
 import mlflow
-from mlflow.tracking import MlflowClient
 import numpy as np
-from dotenv import load_dotenv
 import yaml
 from catboost import CatBoostClassifier
-from xgboost import XGBClassifier
+from dotenv import load_dotenv
+from mlflow.tracking import MlflowClient
+from numpy.typing import ArrayLike
 from sklearn.metrics import accuracy_score, f1_score, precision_score
 from sklearn.model_selection import train_test_split
-import matplotlib.pyplot as plt
-from numpy.typing import ArrayLike
+from xgboost import XGBClassifier
 
 from src.utils.models.plotoutputs import plot_confusion_matrix
 

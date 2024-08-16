@@ -1,7 +1,7 @@
 """Functions to plot the outputs of the models."""
 import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix
 from numpy.typing import ArrayLike
+from sklearn.metrics import confusion_matrix
 
 
 def plot_confusion_matrix(y_real: ArrayLike, y_pred: ArrayLike,

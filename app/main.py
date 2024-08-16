@@ -1,8 +1,8 @@
 """This module contains the code for the Flask app that serves the model."""
 import pickle
+
 import pandas as pd
 from fastapi import FastAPI
-
 
 with open('model.pkl', 'rb') as f_in:
     model = pickle.load(f_in)

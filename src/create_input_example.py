@@ -11,8 +11,8 @@ def main():
     sample = df_train.sample(1).to_dict(orient="records")[0]
 
     # Save sample as a dict
-    with open("sample_input.json", "w", encoding="utf-8") as f:
-        json.dump(sample, f)
+    with open("sample_input.json", "w", encoding="utf-8") as file:
+        json.dump(sample, file)
 
 
 if __name__ == "__main__":

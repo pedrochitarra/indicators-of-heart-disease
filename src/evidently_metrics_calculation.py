@@ -1,24 +1,23 @@
 """Script to simulate model monitoring with Evidently in the test set and
 store the metrics in a PostgreSQL database."""
 # pylint: disable=logging-fstring-interpolation
+import datetime
+import logging
 import pickle
 import random
-import logging
-import datetime
 import time
 
 import pandas as pd
 import psycopg
 import yaml
-from prefect import task, flow
+from evidently.metrics import (ClassificationClassBalance,
+                               ClassificationConfusionMatrix,
+                               ClassificationDummyMetric,
+                               ClassificationQualityByClass,
+                               ClassificationQualityMetric,
+                               ConflictPredictionMetric, ConflictTargetMetric)
 from evidently.report import Report
-from evidently.metrics import ConflictTargetMetric
-from evidently.metrics import ConflictPredictionMetric
-from evidently.metrics import ClassificationQualityMetric
-from evidently.metrics import ClassificationClassBalance
-from evidently.metrics import ClassificationConfusionMatrix
-from evidently.metrics import ClassificationQualityByClass
-from evidently.metrics import ClassificationDummyMetric
+from prefect import flow, task
 
 # TODO: Use Grafana Cloud to visualize the metrics and dashboards. Learn how to
 # use Grafana Cloud to visualize the metrics and dashboards.
