@@ -102,12 +102,12 @@ def classification_optimization(x_train: ArrayLike, y_train: ArrayLike,
     """
     if model_family == "random_forest":
         search_space = {
-            'max_depth': scope.int(hp.quniform('max_depth', 1, 20, 1)),
-            'n_estimators': scope.int(hp.quniform('n_estimators', 10, 50, 1)),
+            'max_depth': scope.int(hp.quniform('max_depth', 1, 50, 1)),
+            'n_estimators': scope.int(hp.quniform('n_estimators', 10, 100, 1)),
             'min_samples_split': scope.int(hp.quniform(
                 'min_samples_split', 2, 10, 1)),
             'min_samples_leaf': scope.int(hp.quniform(
-                'min_samples_leaf', 1, 4, 1)),
+                'min_samples_leaf', 1, 5, 1)),
             'random_state': 2506
         }
 
@@ -124,7 +124,7 @@ def classification_optimization(x_train: ArrayLike, y_train: ArrayLike,
         grow_policy = [{'grow_policy': 'SymmetricTree'},
                        {'grow_policy': 'Depthwise'},
                        {'grow_policy': 'Lossguide',
-                        'max_leaves': hp.quniform('max_leaves', 2, 32, 1)}]
+                        'max_leaves': hp.quniform('max_leaves', 2, 64, 1)}]
 
         # Maximum tree depth in CatBoost
         search_space = {
@@ -132,14 +132,14 @@ def classification_optimization(x_train: ArrayLike, y_train: ArrayLike,
             # If using CPU just set this to 254
             # 'max_bin' : hp.quniform('max_bin', 1, 32, 1),
             'max_bin': 254,
-            'l2_leaf_reg': hp.uniform('l2_leaf_reg', 0, 50),
+            'l2_leaf_reg': hp.uniform('l2_leaf_reg', 0, 100),
             'min_data_in_leaf': hp.quniform('min_data_in_leaf', 1, 50, 1),
             'random_strength': hp.loguniform('random_strength',
-                                             np.log(0.005), np.log(5)),
+                                             np.log(0.005), np.log(15)),
             # Uncomment if using categorical features
             # 'one_hot_max_size' : hp.quniform('one_hot_max_size', 2, 16, 1),
             'bootstrap_type': hp.choice('bootstrap_type', bootstrap_type),
-            'learning_rate': hp.uniform('learning_rate', 0.01, 0.25),
+            'learning_rate': hp.uniform('learning_rate', 0.01, 0.3),
             'eval_metric': loss_function,
             # 'objective': loss_function.upper(),
             'objective': objective_function,
@@ -152,7 +152,7 @@ def classification_optimization(x_train: ArrayLike, y_train: ArrayLike,
             'colsample_bylevel': hp.quniform(
                 'colsample_bylevel', 0.1, 1, 0.01),
             'fold_len_multiplier': hp.loguniform(
-                'fold_len_multiplier', np.log(1.01), np.log(2.5)),
+                'fold_len_multiplier', np.log(1.01), np.log(3)),
             'od_type': 'Iter',
             'od_wait': 25,
             'task_type': 'CPU'

@@ -120,3 +120,7 @@ the code quality by running `pre-commit run --all-files`.
 Also there's a Makefile that has the commands to run tests, check the code quality
 and to build and push the image to Docker Hub. The commands can be run by executing
 `make publish`.
+
+# TODO: Colocar graficos do grafana nos resultados!
+
+# TODO: Colocar grafana na imagem dos tools!
