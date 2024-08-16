@@ -12,13 +12,13 @@ import psycopg
 import yaml
 from prefect import task, flow
 from evidently.report import Report
-from evidently import ColumnMapping
-from evidently.metrics import (ColumnDriftMetric, DatasetDriftMetric,
-                               DatasetMissingValuesMetric,
-                               DatasetSummaryMetric,
-                               ClassificationPreset)
-
-# TODO: Use Evidendly to track Classification metrics to generate the reports.
+from evidently.metrics import ConflictTargetMetric
+from evidently.metrics import ConflictPredictionMetric
+from evidently.metrics import ClassificationQualityMetric
+from evidently.metrics import ClassificationClassBalance
+from evidently.metrics import ClassificationConfusionMatrix
+from evidently.metrics import ClassificationQualityByClass
+from evidently.metrics import ClassificationDummyMetric
 
 # TODO: Use Grafana Cloud to visualize the metrics and dashboards. Learn how to
 # use Grafana Cloud to visualize the metrics and dashboards.
@@ -32,12 +32,13 @@ SEND_TIMEOUT = 10
 rand = random.Random()
 
 create_table_statement = """
-drop table if exists dummy_metrics;
-create table dummy_metrics(
-    sample_number integer,
-    prediction_drift float,
-    num_drifted_columns integer,
-    share_missing_values float
+drop table if exists heart_metrics;
+create table heart_metrics(
+    batch_number integer,
+    precision_ float,
+    recall float,
+    f1 float,
+    accuracy float
 )
 """
 
@@ -55,19 +56,14 @@ cat_features = dvc_params["categorical_features"]
 num_features = list(set(reference_data.columns) -
                     set(cat_features) - {'HadHeartAttack'})
 
-column_mapping = ColumnMapping(
-    prediction='prediction',
-    numerical_features=num_features,
-    categorical_features=cat_features,
-    target=None
-)
-
 report = Report(metrics=[
-    ColumnDriftMetric(column_name='prediction'),
-    DatasetDriftMetric(),
-    DatasetMissingValuesMetric(),
-    DatasetSummaryMetric(),
-    ClassificationPreset()
+    ClassificationQualityMetric(),
+    ClassificationClassBalance(),
+    ConflictTargetMetric(),
+    ConflictPredictionMetric(),
+    ClassificationConfusionMatrix(),
+    ClassificationQualityByClass(),
+    ClassificationDummyMetric(),
 ])
 
 conn_str = "host=localhost port=5432 user=postgres password=example"
@@ -78,45 +74,56 @@ table_str = ("host=localhost port=5432 dbname=test "
 @task
 def prep_db():
     """Prepare the database for the metrics."""
-    conn = psycopg.connect(conn_str, autocommit=True)
-    res = conn.execute("SELECT 1 FROM pg_database WHERE datname='test'")
+    conn = psycopg.connect(conn_str)
+    cur = conn.cursor()
+    res = cur.execute("SELECT 1 FROM pg_database WHERE datname='test'")
+    conn.commit()
     if len(res.fetchall()) == 0:
-        conn.execute("create database test;")
+        cur.execute("create database test;")
+        conn.commit()
     conn_table = psycopg.connect(table_str)
-    conn_table.execute(create_table_statement)
+    cur_table = conn_table.cursor()
+    cur_table.execute(create_table_statement)
+    conn_table.commit()
 
 
 @task
-def calculate_metrics_postgresql(curr, i):
+def calculate_metrics_postgresql(cur, i):
     """Calculate the metrics for raw data and store them in the database."""
-    current_data = test_data.iloc[i:i + 1]
-
-    # current_data.fillna(0, inplace=True)
-    current_data = current_data.drop(columns=["HadHeartAttack"])
+    current_data = test_data.iloc[i:i + 10]
 
     if current_data.isna().sum().sum() > 0:
         current_data.fillna(0, inplace=True)
 
+    # current_data.fillna(0, inplace=True)
+    real_value = current_data['HadHeartAttack'].values
+    current_data = current_data.drop(columns=["HadHeartAttack"])
+
     prediction = model.predict(current_data)
     current_data['prediction'] = prediction
+    current_data['target'] = real_value
 
-    report.run(reference_data=reference_data, current_data=current_data,
-               column_mapping=column_mapping)
+    current_data['prediction'] = current_data['prediction'].replace(
+        {"No": 0, "Yes": 1})
+    current_data['target'] = current_data['target'].replace(
+        {"No": 0, "Yes": 1})
+
+    report.run(reference_data=reference_data, current_data=current_data)
 
     result = report.as_dict()
 
-    prediction_drift = result['metrics'][0]['result']['drift_score']
-    num_drifted_columns = result['metrics'][1]['result'][
-        'number_of_drifted_columns']
-    share_missing_values = result['metrics'][2]['result']['current'][
-        'share_of_missing_values']
+    precision = result['metrics'][0]['result']['current']['precision']
+    recall = result['metrics'][0]['result']['current']['recall']
+    f1 = result['metrics'][0]['result']['current']['f1']
+    accuracy = result['metrics'][0]['result']['current']['accuracy']
 
-    curr.execute(
-        """insert into dummy_metrics(sample_number, prediction_drift,
-        num_drifted_columns, share_missing_values) values
-        (%s, %s, %s, %s)""",
-        (i, prediction_drift,
-         num_drifted_columns, share_missing_values)
+    batch_number = int(i / 10)
+
+    cur.execute(
+        """insert into heart_metrics(batch_number, precision_,
+        recall, f1, accuracy) values
+        (%s, %s, %s, %s, %s)""",
+        (batch_number, precision, recall, f1, accuracy)
     )
 
 
@@ -128,7 +135,7 @@ def batch_monitoring_backfill():
     last_send = datetime.datetime.now() - datetime.timedelta(seconds=10)
     conn = psycopg.connect(table_str, autocommit=True)
     cur = conn.cursor()
-    for i in range(0, len(test_data)):
+    for i in range(0, len(test_data), 10):
         calculate_metrics_postgresql(cur, i)
         new_send = datetime.datetime.now()
         seconds_elapsed = (new_send - last_send).total_seconds()
@@ -143,5 +150,12 @@ if __name__ == '__main__':
     reference_data_preds = model.predict(reference_data.drop(columns=[
         "HadHeartAttack"]))
     reference_data['prediction'] = reference_data_preds
+    # Rename the target column to 'target' to generate the report
+    reference_data = reference_data.rename(
+        columns={"HadHeartAttack": "target"})
+    reference_data['prediction'] = reference_data['prediction'].replace(
+        {"No": 0, "Yes": 1})
+    reference_data['target'] = reference_data['target'].replace(
+        {"No": 0, "Yes": 1})
 
     batch_monitoring_backfill()
