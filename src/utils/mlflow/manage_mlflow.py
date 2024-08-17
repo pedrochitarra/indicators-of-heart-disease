@@ -140,7 +140,7 @@ def register_best_experiment(
     return run.info.run_id
 
 
-def load_model_by_name(model_name: str, download_file: bool = False):
+def load_model_by_name(model_name: str):
     """
     Loads a pre-trained model from an MLflow server.
 

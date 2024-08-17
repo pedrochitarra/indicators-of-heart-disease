@@ -10,7 +10,7 @@ def load_data():
     return data
 
 
-def split_data(data):
+def split_data(data: pd.DataFrame):
     """Split the data into training and testing sets"""
     df_train, df_test = train_test_split(data, test_size=0.2,
                                          random_state=2506)
