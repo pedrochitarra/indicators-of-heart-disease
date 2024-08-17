@@ -42,20 +42,20 @@ stages:
       md5: fab94000f037836ee124cd8fc488194e
       size: 2319209
   modeling:
-    cmd: python src/modeling.py
+    cmd: python -m src.modeling
     deps:
     - path: data/processed/heart_train_cleaned.parquet
       hash: md5
-      md5: d5e7241d11d8e7b8d98c2152fdbe3ea3
+      md5: fab94000f037836ee124cd8fc488194e
       size: 2319209
     - path: src/modeling.py
       hash: md5
-      md5: 7308ffcbbecffe16360d4184017a8140
-      size: 15737
+      md5: 896de326c472295014b8cd26d542005b
+      size: 2062
     params:
       params.yaml:
         modeling:
-          n_trials: 5
+          n_trials: 500
           model_family: catboost
           objective_function: Logloss
-          loss_function: Precision
+          loss_function: F1
