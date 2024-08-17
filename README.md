@@ -94,6 +94,13 @@ Grafana is used to visualize the metrics and the predictions, so it can be
 understood how the model is performing. The docs can be accessed at
 [here](https://grafana.com/docs/grafana/latest/).
 
+The simulation is for many batches with 500 samples each and it was simulated
+that every day a batch is processed. The metrics are stored in the database and
+can be accessed by Grafana.
+
+The dashboard can be viewed at the image below:
+[Dashboard](docs/dashboard.jpg)
+
 # 🖥️ Reproducibility <a name = "reproducibility"></a>
 
 The model can be created running the pipeline defined at the `dvc.yaml` file by
@@ -120,7 +127,3 @@ the code quality by running `pre-commit run --all-files`.
 Also there's a Makefile that has the commands to run tests, check the code quality
 and to build and push the image to Docker Hub. The commands can be run by executing
 `make publish`.
-
-# TODO: Colocar graficos do grafana nos resultados!
-
-# TODO: Colocar grafana na imagem dos tools!

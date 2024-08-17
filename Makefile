@@ -8,6 +8,7 @@ test:
 
 build: quality_checks test
 	echo "Building package"
+	python3 -m src.gather_mlflow_model
 	docker build . -t pedrochitarra/indicators-of-heart-disease:latest
 
 publish: build
