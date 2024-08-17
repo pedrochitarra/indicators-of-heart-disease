@@ -99,7 +99,7 @@ that every day a batch is processed. The metrics are stored in the database and
 can be accessed by Grafana.
 
 The dashboard can be viewed at the image below:
-[Dashboard](docs/dashboard.jpg)
+![Dashboard](docs/dashboard.png)
 
 # 🖥️ Reproducibility <a name = "reproducibility"></a>
 
